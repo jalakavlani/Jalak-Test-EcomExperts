@@ -112,7 +112,7 @@
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
     <option
       value="{{ value | escape }}"
-      {% if option.name != "size" %}
+      {% if option.name != "Size" %}
       {% if option.selected_value == value %}
         selected="selected"
       {% endif %}

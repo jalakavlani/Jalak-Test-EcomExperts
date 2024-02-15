@@ -37,9 +37,9 @@
 <label
   for="{{ id }}"
   title="{{ value }}"
-  class="swatch-input__label{% if shape == 'square' %} swatch-input__label--square{% endif %}"
+  class="swatch-input__label{% if shape == 'square' %} swatch-input__label--square{% endif %} index-{{  index }}"  
 >
-  {% render 'swatch', swatch: value.swatch, shape: shape %}
+  {% render 'swatch', swatch: value.swatch, shape: shape, img:img  %}
   <span class="visually-hidden">{{ value }}</span>
   {{ help_text }}
 </label>

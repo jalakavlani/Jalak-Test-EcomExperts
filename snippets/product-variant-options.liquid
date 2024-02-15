@@ -24,7 +24,6 @@
 
   assign product_form_id = 'product-form-' | append: section.id
 -%}
-
 {%- for value in option.values -%}
   {%- liquid
     assign option_disabled = true
@@ -55,7 +54,7 @@
       assign swatch_value = nil
     endif
   -%}
-
+  
   {%- capture input_id -%}
     {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
   {%- endcapture -%}
@@ -65,6 +64,13 @@
       {{- 'products.product.variant_sold_out_or_unavailable' | t -}}
     </span>
   {%- endcapture %}
+  {% assign imgsrc = '' %}
+  {% for variant in product.variants %}
+    {% if variant.title contains value and variant.image %}
+      {% assign selected_variant = variant %}
+    {% endif %}
+    {% assign imgsrc = selected_variant.image.src | img_url: 'small' %}
+  {% endfor %}
 
   {%- if picker_type == 'swatch' -%}
     {% assign checked = false %}
@@ -80,8 +86,11 @@
       checked: checked,
       disabled: option_disabled,
       shape: block.settings.swatch_shape,
-      help_text: label_unavailable
+      help_text: label_unavailable,
+      index: forloop.index0,
+      img: imgsrc
     %}
+
   {%- elsif picker_type == 'button' -%}
     <input
       type="radio"
@@ -103,8 +112,10 @@
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
     <option
       value="{{ value | escape }}"
+      {% if option.name != "size" %}
       {% if option.selected_value == value %}
         selected="selected"
+      {% endif %}
       {% endif %}
       {% if swatch_value and picker_type == 'swatch_dropdown' %}
         data-option-swatch-value="{{ swatch_value }}"

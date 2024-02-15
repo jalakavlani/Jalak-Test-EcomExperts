@@ -32,6 +32,9 @@
             assign picker_type = 'swatch'
           endif
         endif
+        if option.name == 'color'
+          assign picker_type = 'swatch'          
+        endif
       -%}
       {%- if picker_type == 'swatch' -%}
         <fieldset class="js product-form__input product-form__input--swatch">
@@ -78,6 +81,9 @@
               name="options[{{ option.name | escape }}]"
               form="{{ product_form_id }}"
             >
+              {% if option.name == "size" %}
+                <option value="Select Size" selected disabled>Unselected</option>
+              {% endif %}
               {% render 'product-variant-options',
                 product: product,
                 option: option,

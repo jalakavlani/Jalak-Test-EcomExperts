@@ -19,6 +19,9 @@
   elsif swatch.color
     assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
   endif
+   if img != blank
+    assign swatch_value = 'url(' | append: img | append: ')'
+   endif
 -%}
 
 <span

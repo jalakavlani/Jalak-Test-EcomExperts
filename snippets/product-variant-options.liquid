@@ -77,19 +77,7 @@
     {% if option.selected_value == value %}
       {% assign checked = true %}
     {% endif %}
-    {%
-      render 'swatch-input',
-      id: input_id,
-      name: option.name,
-      value: value | escape,
-      product_form_id: product_form_id,
-      checked: checked,
-      disabled: option_disabled,
-      shape: block.settings.swatch_shape,
-      help_text: label_unavailable,
-      index: forloop.index0,
-      img: imgsrc
-    %}
+    {% render 'swatch-input', id: input_id, name: option.name, value: value, product_form_id: product_form_id, checked: checked, disabled: option_disabled, shape: block.settings.swatch_shape, help_text: label_unavailable, index: forloop.index0, img: imgsrc %}
 
   {%- elsif picker_type == 'button' -%}
     <input
@@ -129,3 +117,28 @@
     </option>
   {%- endif -%}
 {%- endfor -%}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {%
+          render 'swatch-input',
+          id: input_id,
+          name: option.name,
+          value: value | escape,
+          product_form_id: product_form_id,
+          checked: checked,
+          disabled: option_disabled,
+          shape: block.settings.swatch_shape,
+          help_text: label_unavailable,
+          index: forloop.index0,
+          img: imgsrc
+        %}
+  to: "{% render 'swatch-input', id: input_id, name: option.name, value: value, product_form_id:
+    product_form_id, checked: checked, disabled: option_disabled, shape: block.settings.swatch_shape,
+    help_text: label_unavailable, index: forloop.index0, img: imgsrc %}"
+  position: 2773..3028
+{% endcomment %}
